@@ -11,3 +11,10 @@ Book.prototype.getInfo = function () {
   const info = `${title} by ${author}, ${pages} pages, ${read}`;
   return info;
 };
+
+const modal = document.querySelector(".modal");
+const openModal = document.querySelector(".open-modal");
+
+openModal.onclick = () => {
+  modal.style.display = "block";
+};
