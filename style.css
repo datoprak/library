@@ -122,7 +122,8 @@ form > legend {
   justify-self: center;
 }
 
-form > input[type=text] {
+form > input[type="text"],
+form > input[type="number"] {
   padding: 4px 8px;
   background-color: #e5e7eb;
   border: none;
@@ -130,7 +131,7 @@ form > input[type=text] {
   box-shadow: 1px 1px 1px gray;
 }
 
-form > input[type=checkbox] {
+form > input[type="checkbox"] {
   justify-self: start;
 }
 

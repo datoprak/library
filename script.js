@@ -1,6 +1,7 @@
 const modal = document.querySelector(".modal");
-const openModal = document.querySelector(".open-modal");
+const openModalButton = document.querySelector(".open-modal");
 const content = document.querySelector(".content");
+const addBookButton = document.querySelector(".add-book");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -18,7 +19,7 @@ Book.prototype.getInfo = function () {
   return info;
 };
 
-openModal.onclick = () => {
+openModalButton.onclick = () => {
   modal.style.display = "block";
 };
 
@@ -47,3 +48,18 @@ myLibrary.map(book => {
   newDeleteButton.textContent = "X"; //Change this
   newBookCard.appendChild(newDeleteButton);
 });
+
+addBookButton.onclick = e => {
+  e.preventDefault();
+  const newUserBookTitle = e.target.form[0].value;
+  const newUserAuthor = e.target.form[1].value;
+  const newUserPages = e.target.form[2].value;
+  const newUserRead = e.target.form[3].checked;
+  const newUserBook = new Book(
+    newUserBookTitle,
+    newUserAuthor,
+    newUserPages,
+    newUserRead
+  );
+  myLibrary.push(newUserBook);
+};
