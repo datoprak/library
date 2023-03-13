@@ -54,6 +54,9 @@ const updateData = () => {
     newBookCard.appendChild(newBookPages);
     const newReadButton = document.createElement("button");
     newReadButton.classList.add("read-button");
+    if (book.read === true) {
+      newReadButton.classList.add("green-read-button");
+    }
     newReadButton.textContent = "READ";
     newBookCard.appendChild(newReadButton);
     const newDeleteButton = document.createElement("button");
@@ -90,7 +93,8 @@ addBookButton.onclick = e => {
 const bookCards = document.querySelectorAll(".book-card");
 const deleteBookButtons = document.querySelectorAll(".delete-button");
 
-document.addEventListener("click", e => {
+content.addEventListener("click", e => {
+  console.log(e.target.classList);
   if (e.target.classList.value === "delete-button") {
     myLibrary.forEach((book, index) => {
       if (e.target.dataset.index === index.toString()) {
@@ -99,4 +103,10 @@ document.addEventListener("click", e => {
     });
     updateData();
   }
+
+  e.target.classList.forEach(className => {
+    if (className === "read-button") {
+      e.target.classList.toggle("green-read-button");
+    }
+  });
 });

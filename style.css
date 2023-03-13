@@ -79,6 +79,14 @@
 
 .book-card > .read-button {
   border: none;
+  padding: 2px;
+  border-radius: 4px;
+  background-color: #b91c1c;
+  color: #fefefe;
+}
+
+.book-card > .green-read-button {
+  background-color: #15803d;
 }
 
 .book-card > .delete-button {
