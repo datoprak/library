@@ -58,7 +58,7 @@ const updateData = () => {
     newBookCard.appendChild(newReadButton);
     const newDeleteButton = document.createElement("button");
     newDeleteButton.classList.add("delete-button");
-    newDeleteButton.textContent = "X"; //Change this
+    newDeleteButton.textContent = "×";
     newDeleteButton.dataset.index = index;
     newBookCard.appendChild(newDeleteButton);
   });
