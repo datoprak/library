@@ -1,4 +1,5 @@
 const modal = document.querySelector(".modal");
+const error = document.querySelector(".error");
 const openModalButton = document.querySelector(".open-modal");
 const content = document.querySelector(".content");
 const addBookButton = document.querySelector(".add-book");
@@ -71,30 +72,38 @@ updateData();
 
 addBookButton.onclick = e => {
   e.preventDefault();
-  const newUserBookTitle = e.target.form[0].value;
-  const newUserAuthor = e.target.form[1].value;
-  const newUserPages = e.target.form[2].value;
-  const newUserRead = e.target.form[3].checked;
-  const newUserBook = new Book(
-    newUserBookTitle,
-    newUserAuthor,
-    newUserPages,
-    newUserRead
-  );
-  myLibrary.push(newUserBook);
-  e.target.form[0].value = "";
-  e.target.form[1].value = "";
-  e.target.form[2].value = "";
-  e.target.form[3].checked = false;
-  modal.style.display = "none";
-  updateData();
+  if (
+    e.target.form[0].value ||
+    e.target.form[0].value ||
+    e.target.form[0].value
+  ) {
+    const newUserBookTitle = e.target.form[0].value;
+    const newUserAuthor = e.target.form[1].value;
+    const newUserPages = e.target.form[2].value;
+    const newUserRead = e.target.form[3].checked;
+    const newUserBook = new Book(
+      newUserBookTitle,
+      newUserAuthor,
+      newUserPages,
+      newUserRead
+    );
+    myLibrary.push(newUserBook);
+    e.target.form[0].value = "";
+    e.target.form[1].value = "";
+    e.target.form[2].value = "";
+    e.target.form[3].checked = false;
+    modal.style.display = "none";
+    error.style.display = "none";
+    updateData();
+  } else {
+    error.style.display = "block";
+  }
 };
 
 const bookCards = document.querySelectorAll(".book-card");
 const deleteBookButtons = document.querySelectorAll(".delete-button");
 
 content.addEventListener("click", e => {
-  console.log(e.target.classList);
   if (e.target.classList.value === "delete-button") {
     myLibrary.forEach((book, index) => {
       if (e.target.dataset.index === index.toString()) {
