@@ -246,3 +246,7 @@ form > .add-book {
   justify-self: center;
   background-color: #e5e7eb;
 }
+
+.hide {
+  display: none;
+}

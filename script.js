@@ -4,6 +4,7 @@ const openModalButton = document.querySelector(".open-modal");
 const content = document.querySelector(".content");
 const addBookButton = document.querySelector(".add-book");
 const closeModalButton = document.querySelector(".close-modal");
+const searchBar = document.querySelector("#search");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -40,6 +41,7 @@ const updateData = () => {
   myLibrary.forEach((book, index) => {
     const newBookCard = document.createElement("div");
     newBookCard.classList.add("book-card");
+    newBookCard.dataset.index = index;
     content.appendChild(newBookCard);
     const newBookTitle = document.createElement("div");
     newBookTitle.classList.add("title");
@@ -73,9 +75,9 @@ updateData();
 addBookButton.onclick = e => {
   e.preventDefault();
   if (
-    e.target.form[0].value ||
-    e.target.form[0].value ||
-    e.target.form[0].value
+    e.target.form[0].value &&
+    e.target.form[1].value &&
+    e.target.form[2].value
   ) {
     const newUserBookTitle = e.target.form[0].value;
     const newUserAuthor = e.target.form[1].value;
@@ -117,5 +119,22 @@ content.addEventListener("click", e => {
     if (className === "read-button") {
       e.target.classList.toggle("green-read-button");
     }
+  });
+});
+
+searchBar.addEventListener("input", e => {
+  const searchValue = e.target.value.toLowerCase();
+  myLibrary.forEach((book, index) => {
+    const isVisible =
+      book.title.toLowerCase().includes(searchValue) ||
+      book.author.toLowerCase().includes(searchValue);
+    const newBookCards = document.querySelectorAll(".book-card");
+    newBookCards.forEach(card => {
+      console.log(card);
+      if (card.dataset.index === index.toString()) {
+        console.log(card);
+        card.classList.toggle("hide", !isVisible);
+      }
+    });
   });
 });
