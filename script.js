@@ -34,31 +34,37 @@ window.onclick = e => {
   }
 };
 
-myLibrary.map(book => {
-  const newBookCard = document.createElement("div");
-  newBookCard.classList.add("book-card");
-  content.appendChild(newBookCard);
-  const newBookTitle = document.createElement("div");
-  newBookTitle.classList.add("title");
-  newBookTitle.textContent = book.title;
-  newBookCard.appendChild(newBookTitle);
-  const newBookAuthor = document.createElement("div");
-  newBookAuthor.classList.add("author");
-  newBookAuthor.textContent = `by ${book.author}`;
-  newBookCard.appendChild(newBookAuthor);
-  const newBookPages = document.createElement("div");
-  newBookPages.classList.add("pages");
-  newBookPages.textContent = `Pages: ${book.pages}`;
-  newBookCard.appendChild(newBookPages);
-  const newReadButton = document.createElement("button");
-  newReadButton.classList.add("read-button");
-  newReadButton.textContent = "READ";
-  newBookCard.appendChild(newReadButton);
-  const newDeleteButton = document.createElement("button");
-  newDeleteButton.classList.add("delete-button");
-  newDeleteButton.textContent = "X"; //Change this
-  newBookCard.appendChild(newDeleteButton);
-});
+const updateData = () => {
+  content.innerHTML = "";
+  myLibrary.forEach((book, index) => {
+    const newBookCard = document.createElement("div");
+    newBookCard.classList.add("book-card");
+    content.appendChild(newBookCard);
+    const newBookTitle = document.createElement("div");
+    newBookTitle.classList.add("title");
+    newBookTitle.textContent = book.title;
+    newBookCard.appendChild(newBookTitle);
+    const newBookAuthor = document.createElement("div");
+    newBookAuthor.classList.add("author");
+    newBookAuthor.textContent = `by ${book.author}`;
+    newBookCard.appendChild(newBookAuthor);
+    const newBookPages = document.createElement("div");
+    newBookPages.classList.add("pages");
+    newBookPages.textContent = `Pages: ${book.pages}`;
+    newBookCard.appendChild(newBookPages);
+    const newReadButton = document.createElement("button");
+    newReadButton.classList.add("read-button");
+    newReadButton.textContent = "READ";
+    newBookCard.appendChild(newReadButton);
+    const newDeleteButton = document.createElement("button");
+    newDeleteButton.classList.add("delete-button");
+    newDeleteButton.textContent = "X"; //Change this
+    newDeleteButton.dataset.index = index;
+    newBookCard.appendChild(newDeleteButton);
+  });
+};
+
+updateData();
 
 addBookButton.onclick = e => {
   e.preventDefault();
@@ -73,4 +79,24 @@ addBookButton.onclick = e => {
     newUserRead
   );
   myLibrary.push(newUserBook);
+  e.target.form[0].value = "";
+  e.target.form[1].value = "";
+  e.target.form[2].value = "";
+  e.target.form[3].checked = false;
+  modal.style.display = "none";
+  updateData();
 };
+
+const bookCards = document.querySelectorAll(".book-card");
+const deleteBookButtons = document.querySelectorAll(".delete-button");
+
+document.addEventListener("click", e => {
+  if (e.target.classList.value === "delete-button") {
+    myLibrary.forEach((book, index) => {
+      if (e.target.dataset.index === index.toString()) {
+        myLibrary.splice(index, 1);
+      }
+    });
+    updateData();
+  }
+});
