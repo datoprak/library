@@ -2,6 +2,7 @@ const modal = document.querySelector(".modal");
 const openModalButton = document.querySelector(".open-modal");
 const content = document.querySelector(".content");
 const addBookButton = document.querySelector(".add-book");
+const closeModalButton = document.querySelector(".close-modal");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -21,6 +22,16 @@ Book.prototype.getInfo = function () {
 
 openModalButton.onclick = () => {
   modal.style.display = "block";
+};
+
+closeModalButton.onclick = () => {
+  modal.style.display = "none";
+};
+
+window.onclick = e => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
 };
 
 myLibrary.map(book => {
